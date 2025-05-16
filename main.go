@@ -5,9 +5,15 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// get .env
+	err := godotenv.Load()
+	if err != nil {
+		log.Println(".env not found, relying on OS variables")
+	}
 
 	// init gin
 	r := gin.Default()
