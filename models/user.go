@@ -1,0 +1,20 @@
+package models
+
+import (
+	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
+
+type User struct {
+	UUID        uuid.UUID      `json:"uuid" gorm:"primaryKey"`
+	FirstName   string         `json:"first_name"`
+	LastName    string         `json:"last_name"`
+	PhoneNumber string         `json:"phone_number"`
+	Address     string         `json:"address"`
+	Pin         string         `json:"pin"`
+	CreatedAt   time.Time      `json:"created_at"`
+	UpdatedAt   time.Time      `json:"updated_at"`
+	DeletedAt   gorm.DeletedAt `json:"deleted_at"`
+}
