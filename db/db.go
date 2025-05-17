@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type database interface {
+type Database interface {
 	Write() *gorm.DB
 	Read() *gorm.DB
 }
@@ -28,7 +28,7 @@ func (d *dbInstance) Read() *gorm.DB {
 	return d.readDB
 }
 
-func InitDB() database {
+func InitDB() Database {
 	// init master DB
 	masterDB, err := initMasterDB()
 	if err != nil {
