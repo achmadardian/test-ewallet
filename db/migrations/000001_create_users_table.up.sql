@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-    uuid UUID PRIMARY KEY NOT NULL,
+    id UUID PRIMARY KEY NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(20) NOT NULL UNIQUE,
