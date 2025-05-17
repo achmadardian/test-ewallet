@@ -1,6 +1,7 @@
 package main
 
 import (
+	"achmadardian/test-ewallet/db"
 	"achmadardian/test-ewallet/routes"
 	"log"
 
@@ -18,8 +19,11 @@ func main() {
 	// init gin
 	r := gin.Default()
 
+	// init DB
+	DB := db.InitDB()
+
 	// init routes
-	routes.InitRoutes(r)
+	routes.InitRoutes(r, DB)
 
 	log.Println("server running at http://localhost:8080")
 	r.Run(":8080")
