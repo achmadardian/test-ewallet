@@ -76,6 +76,19 @@ func NotFound(c *gin.Context, message ...string) {
 	})
 }
 
+func BadRequest(c *gin.Context, errors any, message ...string) {
+	msg := "bad request"
+	if len(message) > 0 {
+		msg = message[0]
+	}
+
+	c.JSON(http.StatusBadRequest, ApiResponse{
+		Code:    http.StatusBadRequest,
+		Message: msg,
+		Errors:  errors,
+	})
+}
+
 func InternalServerError(c *gin.Context) {
 	c.JSON(http.StatusInternalServerError, ApiResponse{
 		Code:    http.StatusInternalServerError,
