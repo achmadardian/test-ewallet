@@ -50,3 +50,30 @@ func (u *UserService) Create(req *requests.UserRequest) (*models.User, error) {
 
 	return save, nil
 }
+
+func (u *UserService) UpdateUser(req *requests.UserUpdateRequest, id string) (*models.User, error) {
+	uuid, err := uuid.Parse(id)
+	if err != nil {
+		return nil, fmt.Errorf("parse uuid: %w", err)
+	}
+
+	user, err := u.userRepo.GetById(uuid)
+	if err != nil {
+		return nil, fmt.Errorf("get user: %w", err)
+	}
+	if user == nil {
+		return nil, errs.ErrDataNotFound
+	}
+
+	// set update
+	user.FirstName = req.FirstName
+	user.LastName = req.LastName
+	user.Address = req.Address
+
+	update, err := u.userRepo.Update(user, id)
+	if err != nil {
+		return nil, fmt.Errorf("update user: %w", err)
+	}
+
+	return update, nil
+}

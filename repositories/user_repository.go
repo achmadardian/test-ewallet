@@ -3,6 +3,10 @@ package repositories
 import (
 	"achmadardian/test-ewallet/db"
 	"achmadardian/test-ewallet/models"
+	"errors"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type UserRepo struct {
@@ -29,4 +33,27 @@ func (u *UserRepo) IsPhoneRegistered(phone string) (bool, error) {
 	}
 
 	return user > 0, nil
+}
+
+func (u *UserRepo) GetById(id uuid.UUID) (*models.User, error) {
+	var user models.User
+
+	err := u.DB.Read().Select("id, first_name, last_name, phone_number, address, pin").First(&user, id).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (u *UserRepo) Update(user *models.User, id string) (*models.User, error) {
+	if err := u.DB.Write().Where("id = ?", id).Updates(user).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }

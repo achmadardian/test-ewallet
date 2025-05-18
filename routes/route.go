@@ -25,5 +25,6 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 
 		// user
 		api.POST("/register", userHandler.CreateUser)
+		api.PUT("/update-profile/:id", userHandler.UpdateUser)
 	}
 }

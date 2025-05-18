@@ -54,3 +54,36 @@ func (u *UserHandler) CreateUser(c *gin.Context) {
 
 	responses.Created(c, res)
 }
+
+func (u *UserHandler) UpdateUser(c *gin.Context) {
+	var req requests.UserUpdateRequest
+	id := c.Param("id")
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		errRes := validate.ExtractValidationErrors(err)
+		responses.BadRequest(c, errRes, errs.ErrValidationError.Error())
+		return
+	}
+
+	update, err := u.userService.UpdateUser(&req, id)
+	if err != nil {
+		if errors.Is(err, errs.ErrDataNotFound) {
+			responses.NotFound(c, errs.ErrDataNotFound.Error())
+			return
+		}
+
+		log.Printf("failed to update user: %v", err)
+		responses.InternalServerError(c)
+		return
+	}
+
+	res := responses.UserUpdateRespons{
+		Id:        update.Id,
+		FirstName: update.FirstName,
+		LastName:  update.LastName,
+		Address:   update.Address,
+		UpdatedAt: update.UpdatedAt.Format("2006-01-02 15:04:05"),
+	}
+
+	responses.Updated(c, res)
+}
