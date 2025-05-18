@@ -8,82 +8,104 @@ import (
 
 type ApiResponse struct {
 	Code    int    `json:"code"`
+	Status  string `json:"status"`
 	Message string `json:"message"`
-	Data    any    `json:"data,omitempty"`
-	Errors  any    `json:"errros,omitempty"`
+	Data    any    `json:"result,omitempty"`
+	Errors  any    `json:"errors,omitempty"`
 }
 
+var (
+	StatusSuccess = "SUCCESS"
+	StatusFailed  = "FAILED"
+)
+
+var (
+	MsgSuccess             = "ok"
+	MsgCreated             = "created"
+	MsgUpdated             = "updated"
+	MsgDeleted             = "deleted"
+	MsgBadRequest          = "bad request"
+	MsgNotFound            = "not found"
+	MsgInternalServerError = "internal server error"
+)
+
 func Ok(c *gin.Context, data any, message ...string) {
-	msg := "success"
+	msg := MsgSuccess
 	if len(message) > 0 {
 		msg = message[0]
 	}
 
 	c.JSON(http.StatusOK, ApiResponse{
 		Code:    http.StatusOK,
+		Status:  StatusSuccess,
 		Message: msg,
 		Data:    data,
 	})
 }
 
 func Created(c *gin.Context, data any, message ...string) {
-	msg := "created"
+	msg := MsgCreated
 	if len(message) > 0 {
 		msg = message[0]
 	}
 
 	c.JSON(http.StatusCreated, ApiResponse{
 		Code:    http.StatusCreated,
+		Status:  StatusSuccess,
 		Message: msg,
 		Data:    data,
 	})
 }
 
 func Updated(c *gin.Context, data any, message ...string) {
-	msg := "updated"
+	msg := MsgUpdated
 	if len(message) > 0 {
 		msg = message[0]
 	}
 
 	c.JSON(http.StatusOK, ApiResponse{
 		Code:    http.StatusOK,
+		Status:  StatusSuccess,
 		Message: msg,
 		Data:    data,
 	})
 }
 
 func Deleted(c *gin.Context, message ...string) {
-	msg := "deleted"
+	msg := MsgDeleted
 	if len(message) > 0 {
 		msg = message[0]
 	}
 
 	c.JSON(http.StatusOK, ApiResponse{
 		Code:    http.StatusOK,
+		Status:  StatusSuccess,
 		Message: msg,
 	})
 }
 
 func NotFound(c *gin.Context, message ...string) {
-	msg := "not found"
+	msg := MsgNotFound
 	if len(message) > 0 {
 		msg = message[0]
 	}
 
 	c.JSON(http.StatusNotFound, ApiResponse{
 		Code:    http.StatusNotFound,
+		Status:  StatusFailed,
 		Message: msg,
 	})
 }
 
 func BadRequest(c *gin.Context, errors any, message ...string) {
-	msg := "bad request"
+	msg := MsgBadRequest
 	if len(message) > 0 {
 		msg = message[0]
 	}
 
 	c.JSON(http.StatusBadRequest, ApiResponse{
 		Code:    http.StatusBadRequest,
+		Status:  StatusFailed,
 		Message: msg,
 		Errors:  errors,
 	})
@@ -92,6 +114,7 @@ func BadRequest(c *gin.Context, errors any, message ...string) {
 func InternalServerError(c *gin.Context) {
 	c.JSON(http.StatusInternalServerError, ApiResponse{
 		Code:    http.StatusInternalServerError,
-		Message: "internal server error",
+		Status:  StatusFailed,
+		Message: MsgInternalServerError,
 	})
 }
