@@ -12,3 +12,10 @@ type UserRequest struct {
 	Address     string    `json:"address" binding:"required"`
 	Pin         string    `json:"pin" binding:"required"`
 }
+
+type UserUpdateRequest struct {
+	Id        uuid.UUID `json:"-"`
+	FirstName string    `json:"first_name" binding:"required"`
+	LastName  string    `json:"last_name" binding:"required"`
+	Address   string    `json:"address,omitempty"`
+}
