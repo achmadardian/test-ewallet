@@ -3,6 +3,7 @@ package main
 import (
 	"achmadardian/test-ewallet/db"
 	"achmadardian/test-ewallet/routes"
+	"achmadardian/test-ewallet/utils/validate"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -24,6 +25,9 @@ func main() {
 
 	// init routes
 	routes.InitRoutes(r, DB)
+
+	// init translator
+	validate.InitTranslator()
 
 	log.Println("server running at http://localhost:8080")
 	r.Run(":8080")
