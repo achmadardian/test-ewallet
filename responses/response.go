@@ -26,6 +26,7 @@ var (
 	MsgDeleted             = "deleted"
 	MsgBadRequest          = "bad request"
 	MsgNotFound            = "not found"
+	MsgUnauthorized        = "unautorhized"
 	MsgInternalServerError = "internal server error"
 )
 
@@ -108,6 +109,19 @@ func BadRequest(c *gin.Context, errors any, message ...string) {
 		Status:  StatusFailed,
 		Message: msg,
 		Errors:  errors,
+	})
+}
+
+func Unauthorized(c *gin.Context, message ...string) {
+	msg := MsgUnauthorized
+	if len(message) > 0 {
+		msg = message[0]
+	}
+
+	c.JSON(http.StatusUnauthorized, ApiResponse{
+		Code:    http.StatusUnauthorized,
+		Status:  StatusFailed,
+		Message: msg,
 	})
 }
 
