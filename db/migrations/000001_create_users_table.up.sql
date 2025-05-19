@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     phone_number VARCHAR(20) NOT NULL UNIQUE,
     address TEXT NOT NULL,
     pin CHAR(60) NOT NULL,
+    balance BIGINT DEFAULT 0 NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP

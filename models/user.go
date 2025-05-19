@@ -14,6 +14,7 @@ type User struct {
 	PhoneNumber string         `json:"phone_number"`
 	Address     string         `json:"address"`
 	Pin         string         `json:"pin"`
+	Balance     int64          `json:"balance"`
 	CreatedAt   time.Time      `json:"created_at"`
 	UpdatedAt   time.Time      `json:"updated_at"`
 	DeletedAt   gorm.DeletedAt `json:"deleted_at"`

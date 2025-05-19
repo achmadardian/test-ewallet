@@ -38,7 +38,7 @@ func (u *UserRepo) IsPhoneRegistered(phone string) (bool, error) {
 func (u *UserRepo) GetById(id uuid.UUID) (*models.User, error) {
 	var user models.User
 
-	err := u.DB.Read().Select("id, first_name, last_name, phone_number, address, pin").First(&user, id).Error
+	err := u.DB.Read().Select("id, first_name, last_name, phone_number, address, pin, balance").First(&user, id).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, nil
@@ -54,7 +54,7 @@ func (u *UserRepo) GetByPhone(phone string) (*models.User, error) {
 	var user models.User
 
 	err := u.DB.Read().
-		Select("id, first_name, last_name, phone_number, address, pin").
+		Select("id, first_name, last_name, phone_number, address, pin, balance").
 		Where("phone_number = ?", phone).
 		First(&user).Error
 
