@@ -3,6 +3,7 @@ package routes
 import (
 	"achmadardian/test-ewallet/db"
 	"achmadardian/test-ewallet/handlers"
+	"achmadardian/test-ewallet/middlewares"
 	"achmadardian/test-ewallet/repositories"
 	"achmadardian/test-ewallet/services"
 
@@ -30,6 +31,10 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		api.POST("/register", userHandler.CreateUser)
 		api.POST("/login", userHandler.Login)
 
+		// middleware
+		api.Use(middlewares.Auth(authService))
+
+		// protected routes
 		api.PUT("/update-profile/:id", userHandler.UpdateUser)
 	}
 }
