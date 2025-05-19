@@ -1,6 +1,8 @@
 package services
 
 import (
+	"achmadardian/test-ewallet/responses"
+	"achmadardian/test-ewallet/utils/errs"
 	"fmt"
 	"os"
 	"time"
@@ -58,7 +60,7 @@ func (a *AuthService) ValidateToken(token string) (*Claim, error) {
 		return SecretKey, nil
 	}, jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Alg()}))
 	if err != nil {
-		return nil, fmt.Errorf("validate token: %w", err)
+		return nil, errs.ErrInvalidToken
 	}
 
 	claims, ok := validate.Claims.(*Claim)
@@ -67,4 +69,25 @@ func (a *AuthService) ValidateToken(token string) (*Claim, error) {
 	}
 
 	return claims, nil
+}
+
+func (a *AuthService) RefreshToken(refreshToken string) (*responses.RefreshToken, error) {
+	validate, err := a.ValidateToken(refreshToken)
+	if err != nil {
+		return nil, err
+	}
+
+	userId, err := uuid.Parse(validate.Subject)
+	if err != nil {
+		return nil, fmt.Errorf("parse uuid: %w", err)
+	}
+
+	accToken, err := a.GenerateToken(userId, TypeAccessToken, 15*time.Minute)
+	if err != nil {
+		return nil, err
+	}
+
+	return &responses.RefreshToken{
+		AccessToken: accToken,
+	}, nil
 }

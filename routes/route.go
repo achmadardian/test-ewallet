@@ -18,6 +18,7 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		hc := handlers.NewHealthcheck()
 		// auth
 		authService := services.NewAuthService()
+		authHandler := handlers.NewAuthHandler(authService)
 
 		// user
 		userRepo := repositories.NewUserRepo(DB)
@@ -30,6 +31,7 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		// user
 		api.POST("/register", userHandler.CreateUser)
 		api.POST("/login", userHandler.Login)
+		api.POST("/refresh-token", authHandler.RefreshToken)
 
 		// middleware
 		api.Use(middlewares.Auth(authService))
