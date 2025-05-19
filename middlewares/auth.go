@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func Auth(a *services.AuthService) gin.HandlerFunc {
@@ -42,7 +43,14 @@ func Auth(a *services.AuthService) gin.HandlerFunc {
 			return
 		}
 
-		c.Set("user_id", claim.Subject)
+		userId, err := uuid.Parse(claim.Subject)
+		if err != nil {
+			log.Printf("error parse uuid: %v", err)
+			responses.InternalServerError(c)
+			c.Abort()
+			return
+		}
+		c.Set("user_id", userId)
 		c.Next()
 	}
 }
