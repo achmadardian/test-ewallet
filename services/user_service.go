@@ -100,13 +100,8 @@ func (u *UserService) Login(req *requests.UserLoginRequest) (*responses.LoginRes
 	return &login, nil
 }
 
-func (u *UserService) UpdateUser(req *requests.UserUpdateRequest, id string) (*models.User, error) {
-	uuid, err := uuid.Parse(id)
-	if err != nil {
-		return nil, fmt.Errorf("parse uuid: %w", err)
-	}
-
-	user, err := u.userRepo.GetById(uuid)
+func (u *UserService) UpdateUser(req *requests.UserUpdateRequest, id uuid.UUID) (*models.User, error) {
+	user, err := u.userRepo.GetById(id)
 	if err != nil {
 		return nil, fmt.Errorf("get user: %w", err)
 	}

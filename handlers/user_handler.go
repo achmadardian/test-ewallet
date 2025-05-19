@@ -5,6 +5,7 @@ import (
 	"achmadardian/test-ewallet/responses"
 	"achmadardian/test-ewallet/services"
 	"achmadardian/test-ewallet/utils/errs"
+	"achmadardian/test-ewallet/utils/helpers"
 	"achmadardian/test-ewallet/utils/validate"
 	"errors"
 	"log"
@@ -81,7 +82,13 @@ func (u *UserHandler) Login(c *gin.Context) {
 
 func (u *UserHandler) UpdateUser(c *gin.Context) {
 	var req requests.UserUpdateRequest
-	id := c.Param("id")
+
+	id, ok := helpers.GetUserId(c)
+	if !ok {
+		log.Printf("failed to get user_id from context")
+		responses.InternalServerError(c)
+		return
+	}
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		errRes := validate.ExtractValidationErrors(err)

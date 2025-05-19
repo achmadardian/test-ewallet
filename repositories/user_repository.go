@@ -69,7 +69,7 @@ func (u *UserRepo) GetByPhone(phone string) (*models.User, error) {
 	return &user, nil
 }
 
-func (u *UserRepo) Update(user *models.User, id string) (*models.User, error) {
+func (u *UserRepo) Update(user *models.User, id uuid.UUID) (*models.User, error) {
 	if err := u.DB.Write().Where("id = ?", id).Updates(user).Error; err != nil {
 		return nil, err
 	}

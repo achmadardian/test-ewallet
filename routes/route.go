@@ -35,6 +35,6 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		api.Use(middlewares.Auth(authService))
 
 		// protected routes
-		api.PUT("/update-profile/:id", userHandler.UpdateUser)
+		api.PUT("/update-profile", userHandler.UpdateUser)
 	}
 }
