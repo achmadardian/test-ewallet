@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -14,7 +15,7 @@ func NewAuthService() *AuthService {
 	return &AuthService{}
 }
 
-var SecretKey = []byte("ardian")
+var SecretKey = []byte(os.Getenv("SECRET_KEY"))
 
 type TokenType string
 
