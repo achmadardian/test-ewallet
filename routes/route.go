@@ -15,9 +15,12 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 	{
 		// instantiate
 		hc := handlers.NewHealthcheck()
+		// auth
+		authService := services.NewAuthService()
+
 		// user
 		userRepo := repositories.NewUserRepo(DB)
-		userService := services.NewUserService(userRepo)
+		userService := services.NewUserService(userRepo, authService)
 		userHandler := handlers.NewUserHandler(userService)
 
 		// healthcheck
@@ -25,6 +28,8 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 
 		// user
 		api.POST("/register", userHandler.CreateUser)
+		api.POST("/login", userHandler.Login)
+
 		api.PUT("/update-profile/:id", userHandler.UpdateUser)
 	}
 }

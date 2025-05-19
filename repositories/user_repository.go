@@ -50,6 +50,25 @@ func (u *UserRepo) GetById(id uuid.UUID) (*models.User, error) {
 	return &user, nil
 }
 
+func (u *UserRepo) GetByPhone(phone string) (*models.User, error) {
+	var user models.User
+
+	err := u.DB.Read().
+		Select("id, first_name, last_name, phone_number, address, pin").
+		Where("phone_number = ?", phone).
+		First(&user).Error
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	return &user, nil
+}
+
 func (u *UserRepo) Update(user *models.User, id string) (*models.User, error) {
 	if err := u.DB.Write().Where("id = ?", id).Updates(user).Error; err != nil {
 		return nil, err

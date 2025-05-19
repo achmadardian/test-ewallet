@@ -55,6 +55,30 @@ func (u *UserHandler) CreateUser(c *gin.Context) {
 	responses.Created(c, res)
 }
 
+func (u *UserHandler) Login(c *gin.Context) {
+	var req requests.UserLoginRequest
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		errRes := validate.ExtractValidationErrors(err)
+		responses.BadRequest(c, errRes)
+		return
+	}
+
+	login, err := u.userService.Login(&req)
+	if err != nil {
+		if errors.Is(err, errs.ErrInvalidLogin) {
+			responses.Unauthorized(c, errs.ErrInvalidLogin.Error())
+			return
+		}
+
+		log.Printf("error login: %v", err)
+		responses.InternalServerError(c)
+		return
+	}
+
+	responses.Ok(c, login)
+}
+
 func (u *UserHandler) UpdateUser(c *gin.Context) {
 	var req requests.UserUpdateRequest
 	id := c.Param("id")

@@ -4,19 +4,27 @@ import (
 	"achmadardian/test-ewallet/models"
 	"achmadardian/test-ewallet/repositories"
 	"achmadardian/test-ewallet/requests"
+	"achmadardian/test-ewallet/responses"
 	"achmadardian/test-ewallet/utils/errs"
+	"errors"
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 type UserService struct {
-	userRepo *repositories.UserRepo
+	userRepo    *repositories.UserRepo
+	authService *AuthService
 }
 
-func NewUserService(userRepo *repositories.UserRepo) *UserService {
-	return &UserService{userRepo: userRepo}
+func NewUserService(userRepo *repositories.UserRepo, authService *AuthService) *UserService {
+	return &UserService{
+		userRepo:    userRepo,
+		authService: authService,
+	}
 }
 
 func (u *UserService) Create(req *requests.UserRequest) (*models.User, error) {
@@ -49,6 +57,47 @@ func (u *UserService) Create(req *requests.UserRequest) (*models.User, error) {
 	}
 
 	return save, nil
+}
+
+func (u *UserService) Login(req *requests.UserLoginRequest) (*responses.LoginResponse, error) {
+	user, err := u.userRepo.GetByPhone(req.PhoneNumber)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errs.ErrInvalidLogin
+		}
+
+		return nil, fmt.Errorf("get by phone: %w", err)
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Pin), []byte(req.Pin)); err != nil {
+		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+			return nil, errs.ErrInvalidLogin
+		}
+
+		return nil, fmt.Errorf("compare pin: %w", err)
+	}
+
+	accToken, err := u.authService.GenerateToken(user.Id, TypeAccessToken, 15*time.Minute)
+	if err != nil {
+		return nil, fmt.Errorf("access token: %w", err)
+	}
+
+	refToken, err := u.authService.GenerateToken(user.Id, TypeRefreshToken, 7*24*time.Hour)
+	if err != nil {
+		return nil, fmt.Errorf("refresh token: %w", err)
+	}
+
+	login := responses.LoginResponse{
+		AccessToken:  accToken,
+		RefreshToken: refToken,
+		User: responses.UserLoginResponse{
+			Id:        user.Id,
+			FirstName: user.FirstName,
+			LastName:  user.LastName,
+		},
+	}
+
+	return &login, nil
 }
 
 func (u *UserService) UpdateUser(req *requests.UserUpdateRequest, id string) (*models.User, error) {
