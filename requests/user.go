@@ -19,3 +19,8 @@ type UserUpdateRequest struct {
 	LastName  string    `json:"last_name" binding:"required"`
 	Address   string    `json:"address,omitempty"`
 }
+
+type UserLoginRequest struct {
+	PhoneNumber string `json:"phone_number"`
+	Pin         string `json:"pin"`
+}
