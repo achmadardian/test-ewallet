@@ -20,3 +20,15 @@ type UserUpdateRespons struct {
 	Address   string    `json:"address"`
 	UpdatedAt string    `json:"updated_at"`
 }
+
+type UserLoginResponse struct {
+	Id        uuid.UUID `json:"id"`
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+}
+
+type LoginResponse struct {
+	AccessToken  string            `json:"access_token"`
+	RefreshToken string            `json:"refresh_token"`
+	User         UserLoginResponse `json:"user"`
+}
