@@ -42,7 +42,7 @@ func (u *UserRepo) GetById(id uuid.UUID) (*models.User, error) {
 	err := u.DB.Read().Select("id, first_name, last_name, phone_number, address, pin, balance").First(&user, id).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
+			return nil, gorm.ErrRecordNotFound
 		}
 
 		return nil, err

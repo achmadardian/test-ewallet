@@ -134,6 +134,10 @@ func (u *UserService) GetBalance(tx *gorm.DB, userId uuid.UUID) (*models.User, e
 func (u *UserService) GetAccount(userId uuid.UUID) (*models.User, error) {
 	acc, err := u.userRepo.GetById(userId)
 	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errs.ErrDataNotFound
+		}
+
 		return nil, fmt.Errorf("get account: %w", err)
 	}
 
