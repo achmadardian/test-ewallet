@@ -1,17 +1,19 @@
 package responses
 
 import (
+	"achmadardian/test-ewallet/utils/pagination"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 type ApiResponse struct {
-	Code    int    `json:"code"`
-	Status  string `json:"status"`
-	Message string `json:"message"`
-	Data    any    `json:"result,omitempty"`
-	Errors  any    `json:"errors,omitempty"`
+	Code       int                    `json:"code"`
+	Status     string                 `json:"status"`
+	Message    string                 `json:"message"`
+	Data       any                    `json:"result,omitempty"`
+	Errors     any                    `json:"errors,omitempty"`
+	Pagination *pagination.Pagination `json:"pagination,omitempty"`
 }
 
 var (
@@ -41,6 +43,24 @@ func Ok(c *gin.Context, data any, message ...string) {
 		Status:  StatusSuccess,
 		Message: msg,
 		Data:    data,
+	})
+}
+
+func OkPage(c *gin.Context, data any, p *pagination.Pagination, message ...string) {
+	msg := MsgSuccess
+	if len(message) > 0 {
+		msg = message[0]
+	}
+
+	c.JSON(http.StatusOK, ApiResponse{
+		Code:    http.StatusOK,
+		Status:  StatusSuccess,
+		Message: msg,
+		Data:    data,
+		Pagination: &pagination.Pagination{
+			Page:     p.Page,
+			PageSize: p.PageSize,
+		},
 	})
 }
 
