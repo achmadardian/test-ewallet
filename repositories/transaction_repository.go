@@ -6,6 +6,7 @@ import (
 	"achmadardian/test-ewallet/utils/pagination"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type FilterColumn string
@@ -37,15 +38,28 @@ func NewTransactionRepository(DB db.Database) *TransactionRepo {
 	}
 }
 
-func (t *TransactionRepo) GetAllByUserId(tx db.Database, userId uuid.UUID, p *pagination.Pagination) ([]models.Transaction, error) {
+func (t *TransactionRepo) Create(tx *gorm.DB, tr *models.Transaction) (*models.Transaction, error) {
+	DB := tx
+	if tx == nil {
+		DB = t.DB.Write()
+	}
+
+	if err := DB.Create(tr).Error; err != nil {
+		return nil, err
+	}
+
+	return tr, nil
+}
+
+func (t *TransactionRepo) GetAllByUserId(tx *gorm.DB, userId uuid.UUID, p *pagination.Pagination) ([]models.Transaction, error) {
 	var transaction []models.Transaction
 
 	DB := tx
 	if tx == nil {
-		DB = t.DB
+		DB = t.DB.Read()
 	}
 
-	err := DB.Read().
+	err := DB.
 		Select("id, status, user_id, transaction_type, amount, remarks, balance_before, balance_after, created_at").
 		Where("user_id = ?", userId).
 		Where("status", FilterStatusSuccess).
