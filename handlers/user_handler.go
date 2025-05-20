@@ -138,7 +138,7 @@ func (u *UserHandler) GetUserAccount(c *gin.Context) {
 		FirstName:   acc.FirstName,
 		LastName:    acc.LastName,
 		PhoneNumber: acc.PhoneNumber,
-		Address:     acc.PhoneNumber,
+		Address:     acc.Address,
 		Balance:     acc.Balance,
 	}
 
