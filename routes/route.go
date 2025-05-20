@@ -53,6 +53,7 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 
 		// protected routes
 		api.PUT("/update-profile", userHandler.UpdateUser)
+		api.GET("/account", userHandler.GetUserAccount)
 
 		transaction := api.Group("/transactions")
 		{

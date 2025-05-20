@@ -118,3 +118,29 @@ func (u *UserHandler) UpdateUser(c *gin.Context) {
 
 	responses.Updated(c, res)
 }
+
+func (u *UserHandler) GetUserAccount(c *gin.Context) {
+	id, ok := helpers.GetUserId(c)
+	if !ok {
+		log.Printf("failed to get user_id from context")
+		responses.InternalServerError(c)
+		return
+	}
+
+	acc, err := u.userService.GetAccount(id)
+	if err != nil {
+		log.Printf("error login: %v", err)
+		responses.InternalServerError(c)
+		return
+	}
+
+	res := responses.UserAccountResponse{
+		FirstName:   acc.FirstName,
+		LastName:    acc.LastName,
+		PhoneNumber: acc.PhoneNumber,
+		Address:     acc.PhoneNumber,
+		Balance:     acc.Balance,
+	}
+
+	responses.Ok(c, res)
+}
