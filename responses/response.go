@@ -28,7 +28,7 @@ var (
 	MsgDeleted             = "deleted"
 	MsgBadRequest          = "bad request"
 	MsgNotFound            = "not found"
-	MsgUnauthorized        = "unautorhized"
+	MsgUnauthorized        = "unauthorized"
 	MsgInternalServerError = "internal server error"
 )
 
