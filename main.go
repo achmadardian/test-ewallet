@@ -2,6 +2,7 @@ package main
 
 import (
 	"achmadardian/test-ewallet/db"
+	"achmadardian/test-ewallet/queue"
 	"achmadardian/test-ewallet/routes"
 	"achmadardian/test-ewallet/utils/validate"
 	"log"
@@ -23,8 +24,13 @@ func main() {
 	// init DB
 	DB := db.InitDB()
 
+	// init rabbit
+	rabbitmq := queue.Init()
+	defer rabbitmq.Conn.Close()
+	defer rabbitmq.Chann.Close()
+
 	// init routes
-	routes.InitRoutes(r, DB)
+	routes.InitRoutes(r, DB, rabbitmq)
 
 	// init translator
 	validate.InitTranslator()

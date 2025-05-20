@@ -4,13 +4,15 @@ import (
 	"achmadardian/test-ewallet/db"
 	"achmadardian/test-ewallet/handlers"
 	"achmadardian/test-ewallet/middlewares"
+	"achmadardian/test-ewallet/queue"
+	"achmadardian/test-ewallet/queue/consumer"
 	"achmadardian/test-ewallet/repositories"
 	"achmadardian/test-ewallet/services"
 
 	"github.com/gin-gonic/gin"
 )
 
-func InitRoutes(r *gin.Engine, DB db.Database) {
+func InitRoutes(r *gin.Engine, DB db.Database, rb *queue.RabbitMqClient) {
 	// routes
 	api := r.Group("api")
 	{
@@ -39,6 +41,15 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		paymentRepo := repositories.NewPaymentRepository(DB)
 		paymentService := services.NewPaymentService(paymentRepo, userService, txService, DB)
 		paymentHandler := handlers.NewPaymentHandler(paymentService)
+
+		// transfers
+		transferRepo := repositories.NewTransferRepo(DB)
+		transferService := services.NewTransferService(transferRepo, userService, rb, DB, txService)
+		transferHandler := handlers.NewTransferHandler(transferService)
+
+		// worker
+		worker := consumer.NewTransferConsumer(rb, transferService)
+		worker.ConsumeTransfer("transfer")
 
 		// healthcheck
 		api.GET("/", hc.GetHealthcheck)
@@ -70,6 +81,12 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		payment := api.Group("/payments")
 		{
 			payment.POST("/", paymentHandler.Pay)
+		}
+
+		// transfer
+		transfer := api.Group("/transfers")
+		{
+			transfer.POST("/", transferHandler.Transfer)
 		}
 	}
 }
