@@ -35,6 +35,11 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		topupService := services.NewTopService(topupRepo, userService, txService, DB)
 		topupHandler := handlers.NewTopupHandler(topupService)
 
+		// payments
+		paymentRepo := repositories.NewPaymentRepository(DB)
+		paymentService := services.NewPaymentService(paymentRepo, userService, txService, DB)
+		paymentHandler := handlers.NewPaymentHandler(paymentService)
+
 		// healthcheck
 		api.GET("/", hc.GetHealthcheck)
 
@@ -58,6 +63,12 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		topup := api.Group("/topup")
 		{
 			topup.POST("/", topupHandler.Topup)
+		}
+
+		// payment
+		payment := api.Group("/payments")
+		{
+			payment.POST("/", paymentHandler.Pay)
 		}
 	}
 }
