@@ -1,0 +1,1079 @@
+{
+	"info": {
+		"_postman_id": "1d4d2fdc-9967-4ced-bc02-0755e342fd37",
+		"name": "achmadardian/test/ewallet",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21717304",
+		"_collection_link": "https://opinia-backend.postman.co/workspace/Team-Workspace~8c2b75a5-0927-4264-82f4-d89efdd09e25/collection/21717304-1d4d2fdc-9967-4ced-bc02-0755e342fd37?action=share&source=collection_link&creator=21717304"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\": \"achmad\",\n    \"last_name\": \"ardian\",\n    \"phone_number\": \"0881\",\n    \"address\": \"jl. malaka\",\n    \"pin\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"first_name\": \"achmad\",\n    \"last_name\": \"ardian\",\n    \"phone_number\": \"0881\",\n    \"address\": \"jl. malaka\",\n    \"pin\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:17:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "229"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 201,\n    \"status\": \"SUCCESS\",\n    \"message\": \"created\",\n    \"result\": {\n        \"id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n        \"first_name\": \"achmad\",\n        \"last_name\": \"ardian\",\n        \"phone_number\": \"0881\",\n        \"address\": \"jl. malaka\",\n        \"created_at\": \"2025-05-20 21:17:01\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone_number\": \"0881\",\n    \"pin\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phone_number\": \"0881\",\n    \"pin\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:17:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "639"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": {\n        \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJzdWIiOiI2MmI5NjUzZi02ZjYzLTRjYjgtYjE4ZS03YTQ1YTg5OGZlOWMiLCJleHAiOjE3NDc3NzY3NTIsImlhdCI6MTc0Nzc3NTg1Mn0.rl8DHtWehKpnU2jomKhNV-uto9LL1KkkCSlM4XCkx5I\",\n        \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiNjJiOTY1M2YtNmY2My00Y2I4LWIxOGUtN2E0NWE4OThmZTljIiwiZXhwIjoxNzQ4MzgwNjUyLCJpYXQiOjE3NDc3NzU4NTJ9.BSsFzHQb3T7p0HhFoELcPWfB6idKUeT0JTDQd1lo_rM\",\n        \"user\": {\n            \"id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n            \"first_name\": \"achmad\",\n            \"last_name\": \"ardian\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Refresh Token",
+			"item": [
+				{
+					"name": "Refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiNjJiOTY1M2YtNmY2My00Y2I4LWIxOGUtN2E0NWE4OThmZTljIiwiZXhwIjoxNzQ4MzgwNjUyLCJpYXQiOjE3NDc3NzU4NTJ9.BSsFzHQb3T7p0HhFoELcPWfB6idKUeT0JTDQd1lo_rM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/refresh-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"refresh-token"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Refresh token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiNjJiOTY1M2YtNmY2My00Y2I4LWIxOGUtN2E0NWE4OThmZTljIiwiZXhwIjoxNzQ4MzgwNjUyLCJpYXQiOjE3NDc3NzU4NTJ9.BSsFzHQb3T7p0HhFoELcPWfB6idKUeT0JTDQd1lo_rM\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/refresh-token",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"refresh-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:18:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "299"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": {\n        \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJzdWIiOiI2MmI5NjUzZi02ZjYzLTRjYjgtYjE4ZS03YTQ1YTg5OGZlOWMiLCJleHAiOjE3NDc3NzY3ODUsImlhdCI6MTc0Nzc3NTg4NX0.QC0d603JePt4M7YHSRRyx5-03oMZnOWndhwNf8esrqw\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Update Profile",
+			"item": [
+				{
+					"name": "Update profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\": \"achmad\",\n    \"last_name\": \"ardian\",\n    \"address\": \"jl. malaka gg. sakura\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/update-profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"update-profile"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Update profile",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"first_name\": \"achmad\",\n    \"last_name\": \"ardian\",\n    \"address\": \"jl. malaka gg. sakura\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/update-profile",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"update-profile"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:19:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "218"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"updated\",\n    \"result\": {\n        \"id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n        \"first_name\": \"achmad\",\n        \"last_name\": \"ardian\",\n        \"address\": \"jl. malaka gg. sakura\",\n        \"updated_at\": \"2025-05-20 21:19:18\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Topup",
+			"item": [
+				{
+					"name": "Topup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/topup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"topup"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Topup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 10000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/topup",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"topup"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:19:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "199"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": {\n        \"Id\": \"0cdc7404-1dfd-41ec-96df-31a9f28ded9a\",\n        \"amount_top_up\": 10000,\n        \"balance_before\": 0,\n        \"balance_after\": 10000,\n        \"created_at\": \"2025-05-20 21:19:36\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiYjQzMjMzNzEtZjAwMS00MjI3LTg2MWUtZTIzOWEyMzNiYzNhIiwiZXhwIjoxNzQ4MjYwNzg0LCJpYXQiOjE3NDc2NTU5ODR9.azpC_xA7EkLFj-OrITUOfPSaTFnArIcuDtdqgm6TGEY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "page_size",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Transaction",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiYjQzMjMzNzEtZjAwMS00MjI3LTg2MWUtZTIzOWEyMzNiYzNhIiwiZXhwIjoxNzQ4MjYwNzg0LCJpYXQiOjE3NDc2NTU5ODR9.azpC_xA7EkLFj-OrITUOfPSaTFnArIcuDtdqgm6TGEY\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transactions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "page_size",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:21:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1158"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": [\n        {\n            \"id\": \"6cf5faf3-15fd-4216-9b58-3bbd61392326\",\n            \"status\": \"SUCCESS\",\n            \"user_id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n            \"transaction_type\": \"DEBIT\",\n            \"amount\": 5000,\n            \"remarks\": \"hadiah buat kamu\",\n            \"balance_before\": 8000,\n            \"balance_after\": 3000,\n            \"created_at\": \"2025-05-20 21:21:30\",\n            \"user\": {\n                \"id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n                \"first_name\": \"achmad\",\n                \"last_name\": \"ardian\"\n            }\n        },\n        {\n            \"id\": \"2de42b3e-304b-4c00-b4ba-c6797c624350\",\n            \"status\": \"SUCCESS\",\n            \"user_id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n            \"transaction_type\": \"DEBIT\",\n            \"amount\": 2000,\n            \"remarks\": \"beli cilok online\",\n            \"balance_before\": 10000,\n            \"balance_after\": 8000,\n            \"created_at\": \"2025-05-20 21:20:39\",\n            \"user\": {\n                \"id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n                \"first_name\": \"achmad\",\n                \"last_name\": \"ardian\"\n            }\n        },\n        {\n            \"id\": \"48160786-9178-4b04-8eab-1a2c309bfb03\",\n            \"status\": \"SUCCESS\",\n            \"user_id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n            \"transaction_type\": \"CREDIT\",\n            \"amount\": 10000,\n            \"remarks\": null,\n            \"balance_before\": 0,\n            \"balance_after\": 10000,\n            \"created_at\": \"2025-05-20 21:19:36\",\n            \"user\": {\n                \"id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n                \"first_name\": \"achmad\",\n                \"last_name\": \"ardian\"\n            }\n        }\n    ],\n    \"pagination\": {\n        \"page\": 1,\n        \"page_size\": 10\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Transaction with paginate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiYjQzMjMzNzEtZjAwMS00MjI3LTg2MWUtZTIzOWEyMzNiYzNhIiwiZXhwIjoxNzQ4MjYwNzg0LCJpYXQiOjE3NDc2NTU5ODR9.azpC_xA7EkLFj-OrITUOfPSaTFnArIcuDtdqgm6TGEY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions?page_size=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "page_size",
+									"value": "1"
+								}
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Transaction with paginate",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiYjQzMjMzNzEtZjAwMS00MjI3LTg2MWUtZTIzOWEyMzNiYzNhIiwiZXhwIjoxNzQ4MjYwNzg0LCJpYXQiOjE3NDc2NTU5ODR9.azpC_xA7EkLFj-OrITUOfPSaTFnArIcuDtdqgm6TGEY\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transactions?page_size=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "page_size",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:22:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "453"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": [\n        {\n            \"id\": \"6cf5faf3-15fd-4216-9b58-3bbd61392326\",\n            \"status\": \"SUCCESS\",\n            \"user_id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n            \"transaction_type\": \"DEBIT\",\n            \"amount\": 5000,\n            \"remarks\": \"hadiah buat kamu\",\n            \"balance_before\": 8000,\n            \"balance_after\": 3000,\n            \"created_at\": \"2025-05-20 21:21:30\",\n            \"user\": {\n                \"id\": \"62b9653f-6f63-4cb8-b18e-7a45a898fe9c\",\n                \"first_name\": \"achmad\",\n                \"last_name\": \"ardian\"\n            }\n        }\n    ],\n    \"pagination\": {\n        \"page\": 1,\n        \"page_size\": 1\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiYjQzMjMzNzEtZjAwMS00MjI3LTg2MWUtZTIzOWEyMzNiYzNhIiwiZXhwIjoxNzQ4MjYwNzg0LCJpYXQiOjE3NDc2NTU5ODR9.azpC_xA7EkLFj-OrITUOfPSaTFnArIcuDtdqgm6TGEY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/account",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Account",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUb2tlblR5cGUiOiJyZWZyZXNoX3Rva2VuIiwic3ViIjoiYjQzMjMzNzEtZjAwMS00MjI3LTg2MWUtZTIzOWEyMzNiYzNhIiwiZXhwIjoxNzQ4MjYwNzg0LCJpYXQiOjE3NDc2NTU5ODR9.azpC_xA7EkLFj-OrITUOfPSaTFnArIcuDtdqgm6TGEY\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/account",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:19:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "172"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": {\n        \"first_name\": \"achmad\",\n        \"last_name\": \"ardian\",\n        \"phone_number\": \"0881\",\n        \"address\": \"jl. malaka gg. sakura\",\n        \"balance\": 10000\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 2000,\n    \"remarks\": \"beli cilok online\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Payment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 2000,\n    \"remarks\": \"beli cilok online\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/payments",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:20:39 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": {\n        \"id\": \"f19b95a9-8549-4bde-9932-4157f65ce2dd\",\n        \"amount\": 2000,\n        \"remarks\": \"beli cilok online\",\n        \"balance_before\": 10000,\n        \"balance_after\": 8000,\n        \"created_at\": \"2025-05-20 21:20:39\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transfer",
+			"item": [
+				{
+					"name": "Transfer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target_user\": \"3e35d9d4-0641-467d-8f96-aaf64cfaa971\",\n    \"amount\": 5000,\n    \"remarks\": \"hadiah buat kamu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transfers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transfers"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": [
+						{
+							"name": "Transfer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"target_user\": \"3e35d9d4-0641-467d-8f96-aaf64cfaa971\",\n    \"amount\": 5000,\n    \"remarks\": \"hadiah buat kamu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transfers",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transfers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.28.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 20 May 2025 21:21:30 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "241"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": \"SUCCESS\",\n    \"message\": \"ok\",\n    \"result\": {\n        \"id\": \"99efb095-c254-4b7c-908b-1ae205b1b7db\",\n        \"status\": \"PENDING\",\n        \"amount\": 5000,\n        \"remarks\": \"hadiah buat kamu\",\n        \"balance_before\": 8000,\n        \"balance_after\": 3000,\n        \"created_at\": \"2025-05-20 21:21:30\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
