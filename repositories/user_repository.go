@@ -26,16 +26,6 @@ func (u *UserRepo) Create(user *models.User) (*models.User, error) {
 	return user, nil
 }
 
-func (u *UserRepo) IsPhoneRegistered(phone string) (bool, error) {
-	var user int64
-
-	if err := u.DB.Read().Model(&models.User{}).Where("phone_number = ?", phone).Count(&user).Error; err != nil {
-		return false, err
-	}
-
-	return user > 0, nil
-}
-
 func (u *UserRepo) GetById(id uuid.UUID) (*models.User, error) {
 	var user models.User
 
@@ -61,7 +51,7 @@ func (u *UserRepo) GetByPhone(phone string) (*models.User, error) {
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
+			return nil, gorm.ErrRecordNotFound
 		}
 
 		return nil, err

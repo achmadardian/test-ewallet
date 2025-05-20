@@ -28,12 +28,13 @@ func NewUserService(userRepo *repositories.UserRepo, authService *AuthService) *
 }
 
 func (u *UserService) Create(req *requests.UserRequest) (*models.User, error) {
-	isRegistered, err := u.userRepo.IsPhoneRegistered(req.PhoneNumber)
+	_, err := u.userRepo.GetByPhone(req.PhoneNumber)
 	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errs.ErrDataNotFound
+		}
+
 		return nil, fmt.Errorf("check phone registerd: %w", err)
-	}
-	if isRegistered {
-		return nil, errs.ErrPhoneAlreadyUsed
 	}
 
 	uuid := uuid.New()
