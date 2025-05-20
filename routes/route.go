@@ -25,6 +25,11 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		userService := services.NewUserService(userRepo, authService)
 		userHandler := handlers.NewUserHandler(userService)
 
+		// transaction
+		txRepo := repositories.NewTransactionRepository(DB)
+		txService := services.NewTransactionService(txRepo)
+		txHandler := handlers.NewTransactionHandler(txService)
+
 		// healthcheck
 		api.GET("/", hc.GetHealthcheck)
 
@@ -38,5 +43,10 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 
 		// protected routes
 		api.PUT("/update-profile", userHandler.UpdateUser)
+
+		transaction := api.Group("/transactions")
+		{
+			transaction.GET("/", txHandler.GetAllTransactionByUserId)
+		}
 	}
 }
