@@ -30,6 +30,11 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		txService := services.NewTransactionService(txRepo)
 		txHandler := handlers.NewTransactionHandler(txService)
 
+		// topup
+		topupRepo := repositories.NewTopupRepository(DB)
+		topupService := services.NewTopService(topupRepo, userService, txService, DB)
+		topupHandler := handlers.NewTopupHandler(topupService)
+
 		// healthcheck
 		api.GET("/", hc.GetHealthcheck)
 
@@ -47,6 +52,12 @@ func InitRoutes(r *gin.Engine, DB db.Database) {
 		transaction := api.Group("/transactions")
 		{
 			transaction.GET("/", txHandler.GetAllTransactionByUserId)
+		}
+
+		// topup
+		topup := api.Group("/topup")
+		{
+			topup.POST("/", topupHandler.Topup)
 		}
 	}
 }
