@@ -29,13 +29,14 @@ func (t *TransactionService) GetAllByUserId(userId uuid.UUID, p *pagination.Pagi
 	return tr, nil
 }
 
-func (t *TransactionService) Create(tx *gorm.DB, status repo.FilterValue, userId uuid.UUID, trType repo.FilterValue, amount, balBefore, balAfter int64) (*models.Transaction, error) {
+func (t *TransactionService) Create(tx *gorm.DB, status repo.FilterValue, userId uuid.UUID, trType repo.FilterValue, amount, balBefore, balAfter int64, remarks *string) (*models.Transaction, error) {
 	tr := &models.Transaction{
 		Id:              uuid.New(),
 		Status:          string(status),
 		UserId:          userId,
 		TransactionType: string(trType),
 		Amount:          amount,
+		Remarks:         remarks,
 		BalanceBefore:   balBefore,
 		BalanceAfter:    balAfter,
 	}

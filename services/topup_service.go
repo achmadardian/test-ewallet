@@ -48,7 +48,7 @@ func (t *TopupService) Create(req *requests.TopupRequest, userId uuid.UUID) (*mo
 	trType := repo.FilterTransactionCredit
 
 	// create transaction
-	createTr, err := t.txService.Create(tx, status, userId, trType, req.Amount, oldBalance, newBalance)
+	createTr, err := t.txService.Create(tx, status, userId, trType, req.Amount, oldBalance, newBalance, nil)
 	if err != nil {
 		tx.Rollback()
 		return nil, nil, fmt.Errorf("create transaction for topup: %w", err)
