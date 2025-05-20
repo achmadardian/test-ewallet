@@ -7,6 +7,7 @@ import (
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type UserRepo struct {
@@ -63,6 +64,42 @@ func (u *UserRepo) GetByPhone(phone string) (*models.User, error) {
 			return nil, nil
 		}
 
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (u *UserRepo) GetBalance(tx *gorm.DB, id uuid.UUID) (*models.User, error) {
+	var user models.User
+
+	DB := tx
+	if tx == nil {
+		DB = u.DB.Read()
+	}
+
+	err := DB.
+		Clauses(clause.Locking{Strength: "UPDATE"}).
+		Select("balance").
+		First(&user, id).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (u *UserRepo) UpdateBalance(tx *gorm.DB, id uuid.UUID, balance int64) (*models.User, error) {
+	var user models.User
+
+	DB := tx
+	if tx == nil {
+		DB = u.DB.Write()
+	}
+
+	err := DB.Model(&models.User{}).Where("id = ?", id).UpdateColumn("balance", balance).Error
+	if err != nil {
 		return nil, err
 	}
 

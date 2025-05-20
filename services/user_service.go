@@ -121,3 +121,21 @@ func (u *UserService) UpdateUser(req *requests.UserUpdateRequest, id uuid.UUID) 
 
 	return update, nil
 }
+
+func (u *UserService) GetBalance(tx *gorm.DB, userId uuid.UUID) (*models.User, error) {
+	balance, err := u.userRepo.GetBalance(tx, userId)
+	if err != nil {
+		return nil, err
+	}
+
+	return balance, nil
+}
+
+func (u *UserService) UpdateBalance(tx *gorm.DB, userId uuid.UUID, balance int64) (*models.User, error) {
+	update, err := u.userRepo.UpdateBalance(tx, userId, balance)
+	if err != nil {
+		return nil, err
+	}
+
+	return update, nil
+}
